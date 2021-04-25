@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL="https://fliprhackbackend.herokuapp.com/"
+const baseURL="https://fliprhackbackend.herokuapp.com"
 
 const axiosConfig ={ headers: {"Access-Control-Allow-Origin": "https://fliprhackbackend.herokuapp.com/"}}
 
