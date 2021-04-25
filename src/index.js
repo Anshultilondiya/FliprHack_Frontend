@@ -3,10 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {UserProvider} from "./contextProvider/userContext";
+import {TeamProvider} from "./contextProvider/teamProvider";
+import {MatchProvider} from "./contextProvider/matchContext";
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <UserProvider>
+          <MatchProvider>
+              <TeamProvider>
+                    <App />
+              </TeamProvider>
+          </MatchProvider>
+      </UserProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
