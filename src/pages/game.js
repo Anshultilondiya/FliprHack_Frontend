@@ -229,7 +229,7 @@ useEffect(()=>{
             teamStore.viceCapID="vice"
             teamStore.allPlayerDataAvail=false
             history.push("/match")
-        },500)
+        },10000)
     }
 
 

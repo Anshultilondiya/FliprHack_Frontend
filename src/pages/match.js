@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import styled from "styled-components"
-import {nanoid} from 'nanoid'
-import {AiOutlinePlusCircle,AiOutlineMinusCircle} from "react-icons/ai"
+import {AiOutlinePlusCircle} from "react-icons/ai"
 import {useTeamStore} from "../contextProvider/teamProvider";
 import {Observer} from 'mobx-react'
 import {getMatchData, getPlayerCredits} from "../api/match";

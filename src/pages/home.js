@@ -19,8 +19,8 @@ const Button = styled.button`
      const [username, setUsername] = useState("")
      const [password, setPassword] =  useState("")
      const [email, setEmail] = useState("")
-     const [showError, setShowError] = useState(false)
-     const [errorAC, setErrorAC] = useState(false)
+     const [wait, setWait] = useState(false)
+     // const [errorAC, setErrorAC] = useState(false)
 
      const history = useHistory()
 
@@ -28,17 +28,18 @@ const Button = styled.button`
         try{
             let data = await loginUser({username,password})
             // console.log("data",data)
+            setWait(true)
             if(data.status === 200){
                 userStore.user.username=data.data.user.username
                 userStore.user.email=data.data.user.email
                 userStore.user.token=data.data.user.token
                 userStore.user.isLogin = true
-                setShowError(false)
-                history.push("/match")
+                // setShowError(false)
+                setTimeout(()=>{
+                    history.push("/match")
+                },5000)
             }
-            else{
-                setShowError(true)
-            }
+
         }
         catch (e){
             alert(e.message)
@@ -48,17 +49,12 @@ const Button = styled.button`
      const Create = async ()=>{
          try{
              let data = await createUser({username, password,email})
-             // console.log("data",data)
+             console.log("data",data)
+             // setSelectLogin(true)
+             setWait(true)
+             Login()
              if(data.status === 200){
-                 userStore.user.username=data.data.user.username
-                 userStore.user.email=data.data.user.email
-                 userStore.user.token=data.data.user.token
-                 userStore.user.isLogin = true
-                 setErrorAC(false)
-                 history.push("/match")
-             }
-             else{
-                 setErrorAC(true)
+                 // setSelectLogin(true)
              }
          }
          catch (e){
@@ -66,9 +62,6 @@ const Button = styled.button`
              alert(e.message)
          }
      }
-
-
-
 
      const auth = (
          <div className="auth-input">
@@ -99,14 +92,9 @@ const Button = styled.button`
         </div>
         <div className="outer-login-div">
             <div className="login-box">
-                {showError ? (
-                    <p style={{color:"red", fontSize:"80%"}}>Please Enter Correct username or password</p>
+                {wait ? (
+                    <p style={{color:"red", fontSize:"80%"}}>Please Wait, While server is processing</p>
                 ):null}
-                {
-                    errorAC ?(
-                        <p style={{color:"red",fontSize:"80%"}}>Email already register, try login or use different email ID</p>
-                    ):null
-                }
                 <div className="user-pass">
                     <div style={{display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
                         <Button onClick={()=> {
@@ -114,14 +102,13 @@ const Button = styled.button`
                             setUsername("")
                             setEmail("")
                             setPassword("")
-                            setErrorAC(false)
+                            setWait(true)
                         }}>Login</Button>
                         <Button onClick={()=> {
                             setSelectLogin(false)
                             setUsername("")
                             setEmail("")
                             setPassword("")
-                            setShowError(false)
                         }}>Sign Up</Button>
                     </div>
                     <div>
