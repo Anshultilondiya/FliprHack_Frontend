@@ -27,20 +27,47 @@ const Button = styled.button`
      const Login = async ()=>{
         try{
             let data = await loginUser({username,password})
-            console.log("data",data)
+            // console.log("data",data)
             if(data.status === 200){
-                userStore.addName(data.data.user.username)
-                userStore.addEmail(data.data.user.email)
-                userStore.addToken(data.data.token)
-                userStore.confirmLogin()
+                userStore.user.username=data.data.user.username
+                userStore.user.email=data.data.user.email
+                userStore.user.token=data.data.user.token
+                userStore.user.isLogin = true
                 setShowError(false)
                 history.push("/match")
+            }
+            else{
+                setShowError(true)
             }
         }
         catch (e){
             alert(e.message)
         }
      }
+
+     const Create = async ()=>{
+         try{
+             let data = await createUser({username, password,email})
+             // console.log("data",data)
+             if(data.status === 200){
+                 userStore.user.username=data.data.user.username
+                 userStore.user.email=data.data.user.email
+                 userStore.user.token=data.data.user.token
+                 userStore.user.isLogin = true
+                 setErrorAC(false)
+                 history.push("/match")
+             }
+             else{
+                 setErrorAC(true)
+             }
+         }
+         catch (e){
+
+             alert(e.message)
+         }
+     }
+
+
 
 
      const auth = (
@@ -49,23 +76,6 @@ const Button = styled.button`
                  <input placeholder="username" onChange={(e)=>setUsername(e.target.value)} value={username}/>
                  <input placeholder="password" onChange={(e)=>setPassword(e.target.value)} value={password}/>
              </div>
-             {/*<Button onClick={async ()=>{*/}
-             {/*    let data = await loginUser({username,password})*/}
-             {/*    console.log("data",data)*/}
-             {/*    if(data.status === 200){*/}
-             {/*        userStore.addName(data.data.user.username)*/}
-             {/*        userStore.addEmail(data.data.user.email)*/}
-             {/*        userStore.addToken(data.data.token)*/}
-             {/*        userStore.confirmLogin()*/}
-             {/*        setShowError(false)*/}
-             {/*        history.push("/match")*/}
-             {/*    }*/}
-             {/*    else{*/}
-             {/*        setShowError(true)*/}
-             {/*    }*/}
-
-             {/*}}>*/}
-             {/*    Enter</Button>*/}
              <Button onClick={()=>Login()}>Enter</Button>
          </div>
      )
@@ -77,21 +87,7 @@ const Button = styled.button`
                  <input placeholder="email" onChange={(e)=>setEmail(e.target.value)} value={email}/>
                  <input placeholder="password" onChange={(e)=>setPassword(e.target.value)} value={password}/>
              </div>
-             <Button onClick={async ()=>{
-                 let data = await createUser({username, password,email})
-                 console.log(data)
-                 if(data.status === 200){
-                     userStore.addName(data.data.user.username)
-                     userStore.addEmail(data.data.user.email)
-                     userStore.addToken(data.data.token)
-                     userStore.confirmLogin()
-                     setShowError(false)
-                     history.push("/match")
-                 }
-                 else{
-                     setErrorAC(true)
-                 }
-             }}>Create Account</Button>
+             <Button onClick={()=>Create()}>Create Account</Button>
          </div>
      )
 

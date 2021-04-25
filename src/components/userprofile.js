@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import Avatar from "@material-ui/core/Avatar";
 import ABD from "../assets/ABD.jpg";
 import {useUserStore} from "../contextProvider/userContext";
@@ -36,6 +36,13 @@ const Profile =()=>{
 
     const history = useHistory()
 
+
+    useEffect(()=>{
+        if(! userStore.user.isLogin){
+            history.push("/lost")
+        }
+    },[])
+
     return(
             <div className="user-profile">
                 <div>
@@ -44,6 +51,12 @@ const Profile =()=>{
                 </div>
                 <Button onClick={()=>{
                     Logout(userStore.user.token)
+                    userStore.user = {
+                        username: "null",
+                        email:"null",
+                        token:null,
+                        isLogin:false
+                    }
                     history.push("/")
                 }}>Logout</Button>
 

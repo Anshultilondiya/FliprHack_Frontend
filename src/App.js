@@ -4,7 +4,7 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
+  Route, useHistory
 } from "react-router-dom";
 import Home from "./pages/home";
 import styled from "styled-components";
@@ -14,6 +14,7 @@ import UserPanel from "./components/userPanel";
 import Game from "./pages/game"
 import {useUserStore} from "./contextProvider/userContext";
 import Lost from "./pages/lost";
+
 
 const LandingPage =  styled.div`
   background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3) ), url(${img});
@@ -30,6 +31,9 @@ const LandingPage =  styled.div`
 const App=()=>{
 
     const userStore = useUserStore()
+    const history = useHistory()
+
+
 
   return (
       <Router>

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const baseURL="http://127.0.0.1:8000"
+const baseURL="https://fliprhackbackend.herokuapp.com/"
 
-const axiosConfig ={ headers: {"Access-Control-Allow-Origin": "http://localhost:3000/"}}
+const axiosConfig ={ headers: {"Access-Control-Allow-Origin": "https://fliprhackbackend.herokuapp.com/"}}
 
 
 const loginUser =(el)=>{

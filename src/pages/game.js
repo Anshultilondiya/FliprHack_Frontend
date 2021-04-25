@@ -3,6 +3,8 @@ import Profile from "../components/userprofile";
 import {useTeamStore} from "../contextProvider/teamProvider";
 import styled from "styled-components";
 import {useMatchStore} from "../contextProvider/matchContext";
+import {useHistory} from "react-router-dom"
+
 
 const CapButton = styled.div`
 border-radius: 50%;
@@ -17,6 +19,10 @@ border-radius: 50%;
 `
 
 const Game=()=>{
+
+    const history = useHistory()
+
+
     const teamStore = useTeamStore()
     const matchStore = useMatchStore()
     const [currentScore, setCurrentScore] =useState(0)
@@ -211,6 +217,21 @@ useEffect(()=>{
     }
 
 
+    const newGame =()=>{
+        setTimeout(()=>{
+            matchStore.matchDataAvail = false
+            teamStore.team=[]
+            teamStore.credit=100
+            teamStore.teamAarr=[]
+            teamStore.teamBarr=[]
+            teamStore.allPlayers=[]
+            teamStore.capID="cap"
+            teamStore.viceCapID="vice"
+            teamStore.allPlayerDataAvail=false
+            history.push("/match")
+        },500)
+    }
+
 
 
     return(
@@ -267,8 +288,6 @@ useEffect(()=>{
                                         </div>
                                         <div>
                                             <h5>
-
-
                                             {(el.batFifty)?(<CapButton className="indicators-btn"
                                                                        style={{
                                                                            backgroundColor: "#FFA500"
@@ -338,6 +357,7 @@ useEffect(()=>{
                                 {matchEnd?(
                                     <div>
                                     <h3>
+                                        {newGame()}
                                         Winner : {matchStore.winner}
                                     </h3>
                                     <div>
@@ -345,7 +365,6 @@ useEffect(()=>{
                                     </div>
                                     </div>
                                 ):null}
-
                             </div>
 
                         </div>

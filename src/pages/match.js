@@ -23,7 +23,6 @@ const Match = ()=>{
     const teamStore = useTeamStore()
     const matchStore = useMatchStore()
 
-
     useEffect(async ()=>{
         let data;
         if(! matchStore.matchDataAvail){
